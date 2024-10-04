@@ -5,11 +5,11 @@ import csv
 clients_file = r'C:\data\simplon_dev_ia_projects\modelisation_base_donnees\clients.csv'
 commandes_file = r'C:\data\simplon_dev_ia_projects\modelisation_base_donnees\commandes.csv'
 
-# Step 1: Connect to SQLite database
+#  Connect to SQLite database
 conn = sqlite3.connect('my_database.db')
 cursor = conn.cursor()
 
-# Step 2: Import data into Client table
+#  Import data into Client table
 with open(clients_file, 'r', newline='', encoding='utf-8') as file:
     reader = csv.DictReader(file)
     
@@ -20,9 +20,9 @@ with open(clients_file, 'r', newline='', encoding='utf-8') as file:
                 VALUES (?, ?, ?, ?, ?, ?, ?)
             ''', (
                 row['Nom'],
-                row['Prénom'],  # Match with CSV header: 'Prénom' with an accent
+                row['Prénom'],  # Match with CSV header: 'Prénom' 
                 row['Email'],
-                row['Téléphone'] if row['Téléphone'] else None,  # Match with CSV header: 'Téléphone' with an accent
+                row['Téléphone'] if row['Téléphone'] else None,  # Match with CSV header: 'Téléphone' 
                 row['Date_Naissance'] if row['Date_Naissance'] else None,
                 row['Adresse'] if row['Adresse'] else None,
                 int(row['Consentement_Marketing'])  # Mandatory field
@@ -30,7 +30,7 @@ with open(clients_file, 'r', newline='', encoding='utf-8') as file:
         except sqlite3.IntegrityError as e:
             print(f"Error inserting client: {e}")
 
-# Step 3: Import data into Commande table
+# Import data into Commande table
 with open(commandes_file, 'r', newline='', encoding='utf-8') as file:
     reader = csv.DictReader(file)
 
@@ -47,7 +47,7 @@ with open(commandes_file, 'r', newline='', encoding='utf-8') as file:
         except sqlite3.IntegrityError as e:
             print(f"Error inserting commande: {e}")
 
-# Step 4: Commit changes and close the connection
+#  Commit changes and close the connection
 conn.commit()
 conn.close()
 
