@@ -1,1 +1,1 @@
-pandas
+cryptography==41.0.2
